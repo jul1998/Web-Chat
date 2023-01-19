@@ -1,0 +1,18 @@
+.card-body{
+   height: 300px; /* set the desired height of the chat window */
+    overflow-y: scroll; /* add a scrollbar to the y-axis */
+}
+
+.sender-message {
+  text-align: right;
+  background-color: #dcf8c6;
+}
+
+.receiver-message {
+  text-align: left;
+  background-color: #f0f0f0;
+}
+
+ul {
+    list-style-type: none;
+}

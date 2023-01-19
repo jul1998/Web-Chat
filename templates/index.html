@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flask-SocketIO Example</title>
+  <link href="{{url_for('static', filename='css/chat.css')}}" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+  <script>
+    var socket = io.connect("http://192.168.100.193:5000/");
+    function sendMessage() {
+       var message = document.getElementById('message').value;
+      var sender = document.querySelector("#user").value
+      socket.emit('message', {"sender":sender, "message": message});
+      document.getElementById('message').value = ""
+    }
+    socket.on('message', function(data) {
+      var messageElem = document.createElement('li');
+       var sender = data["sender"]
+      var message = data["message"]
+       messageElem.innerHTML = sender + ": " + message;
+    messageElem.classList.add(sender == document.querySelector("#user").value ? 'sender-message' : 'receiver-message')
+    document.getElementById('messages').appendChild(messageElem);
+
+
+
+    });
+
+
+  </script>
+</head>
+<body>
+<div class="container text-center">
+  <div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col-6">
+     <h1>Flask-SocketIO Example</h1>
+<div class="main">
+  <div class="card">
+    <div class="card-header">
+        <h3>Chat Room</h3>
+    </div>
+    <div class="card-body" id="main--chat-window">
+      <ul class="list-group" id="messages">
+        <!-- messages will be added here dynamically -->
+      </ul>
+    </div>
+    <div class="card-footer">
+      <div class="input-group">
+        <input type="text" class="form-control" id="message" placeholder="Enter a message">
+        <input type="text" id="user" class="form-control" placeholder="Username">
+        <div class="input-group-append">
+          <button class="btn btn-primary" onclick="sendMessage()">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+
+    </div>
+    <div class="col-5">
+
+    </div>
+    <div class="col">
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
